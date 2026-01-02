@@ -60,19 +60,19 @@
   --color-foreground: var(--foreground);
   --font-poppins: var(--poppins);
 
-  --color-brand: #FA7275;
-  --color-brand-100: #EA6365;
-  --color-red: #FF7474;
+  --color-brand: #fa7275;
+  --color-brand-100: #ea6365;
+  --color-red: #ff7474;
   --color-error: #b80000;
-  --color-green: #3DD9B3;
-  --color-blue: #56B8FF;
-  --color-pink: #EEA8FD;
-  --color-orange: #F9AB72;
-  --color-light-100: #333F4E;
-  --color-light-200: #A3B2C7;
-  --color-light-300: #F2F5F9;
-  --color-light-400: #F2F4F8;
-  --color-dark-100: #04050C;
+  --color-green: #3dd9b3;
+  --color-blue: #56b8ff;
+  --color-pink: #eea8fd;
+  --color-orange: #f9ab72;
+  --color-light-100: #333f4e;
+  --color-light-200: #a3b2c7;
+  --color-light-300: #f2f5f9;
+  --color-light-400: #f2f4f8;
+  --color-dark-100: #04050c;
   --color-dark-200: #131524;
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -110,7 +110,6 @@
   --animate: caret-blink 1.25s ease-out infinite;
 
   @keyframes caret-blink {
-
     0%,
     70%,
     100% {
@@ -126,7 +125,7 @@
 
 @layer base {
   * {
-    @apply scroll-smooth border-border;
+    @apply border-border scroll-smooth;
   }
 
   body {
@@ -214,7 +213,7 @@
 }
 
 @utility primary-btn {
-  @apply bg-brand! hover:bg-brand-100! transition-all! rounded-full! button!;
+  @apply bg-brand! hover:bg-brand-100! button! rounded-full! transition-all!;
 }
 
 @utility flex-center {
@@ -223,19 +222,19 @@
 
 /* =====  SHADCN OVERRIDES */
 @utility shad-no-focus {
-  @apply outline-none! ring-offset-transparent! focus:ring-transparent! focus:ring-offset-0! focus-visible:outline-none! focus-visible:ring-0! focus-visible:ring-transparent! focus-visible:ring-offset-0!;
+  @apply ring-offset-transparent! outline-none! focus:ring-transparent! focus:ring-offset-0! focus-visible:ring-0! focus-visible:ring-transparent! focus-visible:ring-offset-0! focus-visible:outline-none!;
 }
 
 @utility shad-input {
-  @apply border-none! shadow-none! p-0! shad-no-focus! placeholder:text-light-200! body-2!;
+  @apply shad-no-focus! placeholder:text-light-200! body-2! border-none! p-0! shadow-none!;
 }
 
 @utility shad-form-item {
-  @apply flex h-19.5 flex-col justify-center rounded-xl border border-light-300 px-4 shadow-drop-1;
+  @apply border-light-300 shadow-drop-1 flex h-19.5 flex-col justify-center rounded-xl border px-4;
 }
 
 @utility shad-form-label {
-  @apply text-light-100! pt-2! body-2! w-full!;
+  @apply text-light-100! body-2! w-full! pt-2!;
 }
 
 @utility shad-form-message {
@@ -243,34 +242,34 @@
 }
 
 @utility shad-alert-dialog {
-  @apply space-y-4! max-w-[95%]! sm:w-fit! rounded-xl! md:rounded-[30px]! px-4! md:px-8! py-10! bg-white! outline-none! ;
+  @apply max-w-[95%]! space-y-4! rounded-xl! bg-white! px-4! py-10! outline-none! sm:w-fit! md:rounded-[30px]! md:px-8!;
 }
 
 @utility shad-submit-btn {
-  @apply bg-brand! button! hover:bg-brand-100! transition-all! rounded-full!;
+  @apply bg-brand! button! hover:bg-brand-100! rounded-full! transition-all!;
 }
 
 @utility shad-otp {
-  @apply w-full! flex! gap-1! sm:gap-2! justify-between!;
+  @apply flex! w-full! justify-between! gap-1! sm:gap-2!;
 }
 
 @utility shad-otp-slot {
-  @apply text-[40px]! font-medium! rounded-xl! ring-brand! shadow-drop-1! text-brand-100! justify-center! flex! border-2! border-light-300! size-12! md:size-16! gap-5!;
+  @apply ring-brand! shadow-drop-1! text-brand-100! border-light-300! flex! size-12! justify-center! gap-5! rounded-xl! border-2! text-[40px]! font-medium! md:size-16!;
 }
 
 @utility shad-sheet {
   @apply pt-0!;
 }
 
-@utility shad-sheet{
-   button {
-    @apply focus:ring-0! focus:ring-offset-0! focus-visible:border-none! outline-none! focus-visible:outline-none! focus-visible:ring-transparent! focus-visible:ring-offset-0!;
+@utility shad-sheet {
+  button {
+    @apply outline-none! focus:ring-0! focus:ring-offset-0! focus-visible:border-none! focus-visible:ring-transparent! focus-visible:ring-offset-0! focus-visible:outline-none!;
   }
 }
 
 @utility shad-dialog {
   button {
-    @apply focus:ring-0! focus:ring-offset-0! focus-visible:border-none! outline-none! focus-visible:outline-none! focus-visible:ring-transparent! focus-visible:ring-offset-0!;
+    @apply outline-none! focus:ring-0! focus:ring-offset-0! focus-visible:border-none! focus-visible:ring-transparent! focus-visible:ring-offset-0! focus-visible:outline-none!;
   }
 }
 
@@ -279,7 +278,7 @@
 }
 
 @utility shad-dialog {
-  @apply rounded-[26px]! w-[90%]! max-w-100! px-6! py-8!;
+  @apply w-[90%]! max-w-100! rounded-[26px]! px-6! py-8!;
 }
 
 @utility shad-chart-title {
@@ -292,18 +291,18 @@
 
 /* Sidebar & MobileNavigation */
 @utility nav-icon {
-  @apply w-6! filter! invert! opacity-25!;
+  @apply w-6! opacity-25! invert! filter!;
 }
 
 @utility nav-icon-active {
-  @apply invert-0! opacity-100!;
+  @apply opacity-100! invert-0!;
 }
 
 /* =====  STYLE CLASSES */
 
 /* Root Layout */
 @utility main-content {
-  @apply remove-scrollbar! h-full! flex-1! overflow-auto! bg-light-400! px-5! py-7! sm:mr-7! sm:rounded-[30px]! md:mb-7! md:px-9! md:py-10!;
+  @apply remove-scrollbar! bg-light-400! h-full! flex-1! overflow-auto! px-5! py-7! sm:mr-7! sm:rounded-[30px]! md:mb-7! md:px-9! md:py-10!;
 }
 
 /* Dashboard */
@@ -320,7 +319,7 @@
 }
 
 @utility summary-type-icon {
-  @apply absolute! -left-3! -top-6.25! z-10! w-47.5! object-contain!;
+  @apply absolute! -top-6.25! -left-3! z-10! w-47.5! object-contain!;
 }
 
 @utility summary-type-size {
@@ -340,7 +339,7 @@
 }
 
 @utility recent-file-name {
-  @apply subtitle-2! line-clamp-1! w-full! text-light-100! sm:max-w-50! lg:max-w-62.5!;
+  @apply subtitle-2! text-light-100! line-clamp-1! w-full! sm:max-w-50! lg:max-w-62.5!;
 }
 
 @utility recent-file-date {
@@ -348,7 +347,7 @@
 }
 
 @utility empty-list {
-  @apply body-1! mt-10! text-center! text-light-200!;
+  @apply body-1! text-light-200! mt-10! text-center!;
 }
 
 /* Type page */
@@ -357,7 +356,7 @@
 }
 
 @utility total-size-section {
-  @apply flex! mt-2! flex-col! justify-between! sm:flex-row! sm:items-center!;
+  @apply mt-2! flex! flex-col! justify-between! sm:flex-row! sm:items-center!;
 }
 
 @utility file-list {
@@ -370,19 +369,19 @@
 
 /* ActionsDropdown */
 @utility rename-input-field {
-  @apply body-2! shad-no-focus! h-13! w-full! rounded-full! border! px-4! shadow-drop-1!;
+  @apply body-2! shad-no-focus! shadow-drop-1! h-13! w-full! rounded-full! border! px-4!;
 }
 
 @utility delete-confirmation {
-  @apply text-center! text-light-100!;
+  @apply text-light-100! text-center!;
 }
 
 @utility delete-file-name {
-  @apply font-medium! text-brand-100!;
+  @apply text-brand-100! font-medium!;
 }
 
 @utility modal-cancel-button {
-  @apply h-13! flex-1! rounded-full! bg-white! text-light-100! hover:bg-transparent!;
+  @apply text-light-100! h-13! flex-1! rounded-full! bg-white! hover:bg-transparent!;
 }
 
 @utility modal-submit-button {
@@ -391,11 +390,11 @@
 
 /* ActionsModalContent */
 @utility file-details-thumbnail {
-  @apply mb-1! flex! items-center! gap-3! rounded-xl! border! border-light-200/40! bg-light-400/50! p-3!;
+  @apply border-light-200/40! bg-light-400/50! mb-1! flex! items-center! gap-3! rounded-xl! border! p-3!;
 }
 
 @utility file-details-label {
-  @apply body-2! w-[30%]! text-light-100!;
+  @apply body-2! text-light-100! w-[30%]!;
 }
 
 @utility file-details-value {
@@ -407,11 +406,11 @@
 }
 
 @utility share-input-field {
-  @apply body-2! shad-no-focus! h-13! w-full! rounded-full! border! px-4! shadow-drop-1!;
+  @apply body-2! shad-no-focus! shadow-drop-1! h-13! w-full! rounded-full! border! px-4!;
 }
 
 @utility share-remove-user {
-  @apply rounded-full! bg-transparent! text-light-100! shadow-none! hover:bg-transparent!;
+  @apply text-light-100! rounded-full! bg-transparent! shadow-none! hover:bg-transparent!;
 }
 
 @utility remove-icon {
@@ -424,7 +423,7 @@
 }
 
 @utility form-title {
-  @apply h1! text-center! text-light-100! md:text-left!;
+  @apply h1! text-light-100! text-center! md:text-left!;
 }
 
 @utility form-submit-button {
@@ -432,21 +431,21 @@
 }
 
 @utility error-message {
-  @apply body-2! mx-auto! w-fit! rounded-xl! bg-error/5! px-8! py-4! text-center! text-error!;
+  @apply body-2! bg-error/5! text-error! mx-auto! w-fit! rounded-xl! px-8! py-4! text-center!;
 }
 
 /* Card */
 @utility file-card {
-  @apply flex! cursor-pointer! flex-col! gap-6! rounded-[18px]! bg-white! p-5! shadow-sm! transition-all! hover:shadow-drop-3!;
+  @apply hover:shadow-drop-3! flex! cursor-pointer! flex-col! gap-6! rounded-[18px]! bg-white! p-5! shadow-sm! transition-all!;
 }
 
 @utility file-card-details {
-  @apply flex! flex-col! gap-2! text-light-100!;
+  @apply text-light-100! flex! flex-col! gap-2!;
 }
 
 /* Chart */
 @utility chart {
-  @apply flex! items-center! rounded-[20px]! bg-brand! p-5! text-white! md:flex-col! xl:flex-row!;
+  @apply bg-brand! flex! items-center! rounded-[20px]! p-5! text-white! md:flex-col! xl:flex-row!;
 }
 
 @utility chart-container {
@@ -454,7 +453,7 @@
 }
 
 @utility polar-grid {
-  @apply first:fill-white/20! last:fill-brand!;
+  @apply last:fill-brand! first:fill-white/20!;
 }
 
 @utility chart-details {
@@ -475,15 +474,15 @@
 
 /* FileUploader */
 @utility uploader-button {
-  @apply primary-btn! h-13! gap-2! px-10! shadow-drop-1!;
+  @apply primary-btn! shadow-drop-1! h-13! gap-2! px-10!;
 }
 
 @utility uploader-preview-list {
-  @apply fixed! bottom-10! right-10! z-50! flex! size-full! h-fit! max-w-120! flex-col! gap-3! rounded-[20px]! bg-white! p-7! shadow-drop-3!;
+  @apply shadow-drop-3! fixed! right-10! bottom-10! z-50! flex! size-full! h-fit! max-w-120! flex-col! gap-3! rounded-[20px]! bg-white! p-7!;
 }
 
 @utility uploader-preview-item {
-  @apply flex! items-center! justify-between! gap-3! rounded-xl! p-3! shadow-drop-3!;
+  @apply shadow-drop-3! flex! items-center! justify-between! gap-3! rounded-xl! p-3!;
 }
 
 @utility preview-item-name {
@@ -504,7 +503,7 @@
 }
 
 @utility sign-out-button {
-  @apply flex-center! h-13! min-w-13.5! items-center! rounded-full! bg-brand/10! p-0! text-brand! shadow-none! transition-all! hover:bg-brand/20! ;
+  @apply flex-center! bg-brand/10! text-brand! hover:bg-brand/20! h-13! min-w-13.5! items-center! rounded-full! p-0! shadow-none! transition-all!;
 }
 
 /* Mobile Navigation */
@@ -513,7 +512,7 @@
 }
 
 @utility header-user {
-  @apply my-3! flex! items-center! gap-2! rounded-full! p-1! text-light-100! sm:justify-center! sm:bg-brand/10! lg:justify-start! lg:p-3!;
+  @apply text-light-100! sm:bg-brand/10! my-3! flex! items-center! gap-2! rounded-full! p-1! sm:justify-center! lg:justify-start! lg:p-3!;
 }
 
 @utility header-user-avatar {
@@ -521,7 +520,7 @@
 }
 
 @utility mobile-nav {
-  @apply h5! flex-1! gap-1! text-brand!;
+  @apply h5! text-brand! flex-1! gap-1!;
 }
 
 @utility mobile-nav-list {
@@ -529,16 +528,16 @@
 }
 
 @utility mobile-nav-item {
-  @apply flex! text-light-100! gap-4! w-full! justify-start! items-center! h5! px-6! h-13! rounded-full!;
+  @apply text-light-100! h5! flex! h-13! w-full! items-center! justify-start! gap-4! rounded-full! px-6!;
 }
 
 @utility mobile-sign-out-button {
-  @apply h5! flex! h-13! w-full! items-center! gap-4! rounded-full! bg-brand/10! px-6! text-brand! shadow-none! transition-all! hover:bg-brand/20!;
+  @apply h5! bg-brand/10! text-brand! hover:bg-brand/20! flex! h-13! w-full! items-center! gap-4! rounded-full! px-6! shadow-none! transition-all!;
 }
 
 /* OTP Modal */
 @utility otp-close-button {
-  @apply absolute! -right-1! -top-7! cursor-pointer! sm:-right-2! sm:-top-4!;
+  @apply absolute! -top-7! -right-1! cursor-pointer! sm:-top-4! sm:-right-2!;
 }
 
 /* Search */
@@ -547,19 +546,19 @@
 }
 
 @utility search-input-wrapper {
-  @apply flex! h-13! flex-1! items-center! gap-3! rounded-full! px-4! shadow-drop-3!;
+  @apply shadow-drop-3! flex! h-13! flex-1! items-center! gap-3! rounded-full! px-4!;
 }
 
 @utility search-input {
-  @apply body-2! shad-no-focus! placeholder:body-1! w-full! border-none! p-0! shadow-none! placeholder:text-light-200!;
+  @apply body-2! shad-no-focus! placeholder:body-1! placeholder:text-light-200! w-full! border-none! p-0! shadow-none!;
 }
 
 @utility search-result {
-  @apply absolute! left-0! top-16! z-50! flex! w-full! flex-col! gap-3! rounded-[20px]! bg-white! p-4!;
+  @apply absolute! top-16! left-0! z-50! flex! w-full! flex-col! gap-3! rounded-[20px]! bg-white! p-4!;
 }
 
 @utility empty-result {
-  @apply body-2! text-center! text-light-100!;
+  @apply body-2! text-light-100! text-center!;
 }
 
 /* Sidebar */
@@ -568,15 +567,15 @@
 }
 
 @utility sidebar-nav {
-  @apply h5! mt-9! flex-1! gap-1! text-brand!;
+  @apply h5! text-brand! mt-9! flex-1! gap-1!;
 }
 
 @utility sidebar-nav-item {
-  @apply flex! text-light-100! gap-4! rounded-xl! lg:w-full! justify-center! lg:justify-start! items-center! h5! lg:px-7.5! h-13! lg:rounded-full!;
+  @apply text-light-100! h5! flex! h-13! items-center! justify-center! gap-4! rounded-xl! lg:w-full! lg:justify-start! lg:rounded-full! lg:px-7.5!;
 }
 
 @utility sidebar-user-info {
-  @apply mt-4! flex! items-center! justify-center! gap-2! rounded-full! bg-brand/10! p-1! text-light-100! lg:justify-start! lg:p-3!;
+  @apply bg-brand/10! text-light-100! mt-4! flex! items-center! justify-center! gap-2! rounded-full! p-1! lg:justify-start! lg:p-3!;
 }
 
 @utility sidebar-user-avatar {
@@ -584,7 +583,7 @@
 }
 
 @utility shad-active {
-  @apply bg-brand! text-white! shadow-drop-2!;
+  @apply bg-brand! shadow-drop-2! text-white!;
 }
 
 /* Sort */
@@ -598,7 +597,7 @@
 
 /* Thumbnail */
 @utility thumbnail {
-  @apply flex-center size-12.5 min-w-12.5 overflow-hidden rounded-full bg-brand/10;
+  @apply flex-center bg-brand/10 size-12.5 min-w-12.5 overflow-hidden rounded-full;
 }
 
 @utility thumbnail-image {
