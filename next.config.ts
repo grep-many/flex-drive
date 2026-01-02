@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  basePath: "/flux-drive",
+  basePath: "/flex-drive",
 };
 
 export default nextConfig;
