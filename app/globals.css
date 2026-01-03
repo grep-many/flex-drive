@@ -131,6 +131,10 @@
   body {
     @apply bg-background text-foreground min-h-screen;
   }
+
+  button {
+    @apply cursor-pointer!;
+  }
 }
 
 @utility remove-scrollbar {
@@ -213,7 +217,7 @@
 }
 
 @utility primary-btn {
-  @apply bg-brand! hover:bg-brand-100! button! rounded-full! transition-all!;
+  @apply bg-brand! hover:bg-brand-100! active:bg-brand-100! button! rounded-full! transition-all!;
 }
 
 @utility flex-center {
@@ -226,7 +230,7 @@
 }
 
 @utility shad-input {
-  @apply shad-no-focus! placeholder:text-light-200! body-2! border-none! p-0! shadow-none!;
+  @apply shad-no-focus! placeholder:text-light-200! body-2! border-none! p-0! px-3! mt-1! shadow-none!;
 }
 
 @utility shad-form-item {

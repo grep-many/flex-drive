@@ -9,6 +9,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
         <span className="flex items-center gap-1 text-[calc(82px/1.8)] font-black text-white text-shadow-black text-shadow-sm">
           <Image
             src={logoImg}
+            loading="eager"
             alt="logo"
             width={82}
             height={82}
@@ -24,16 +25,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
             alt="Files"
             width={342}
             height={342}
-            className="cursor-pointer transition-all hover:scale-105 hover:rotate-2"
+            className="mx-auto max-h-[40vh] w-auto cursor-pointer drop-shadow-sm drop-shadow-black transition-all hover:scale-105 hover:rotate-2 hover:drop-shadow-lg hover:drop-shadow-black"
           />
         </div>
       </div>
     </section>
     <section className="flex flex-1 flex-col items-center bg-white p-4 py-10 lg:justify-center lg:p-10 lg:py-0">
       <div className="mb-16 lg:hidden">
-        <span className="flex w-50 items-center justify-center gap-1 text-[calc(82px/1.8)] font-black text-white text-shadow-black text-shadow-sm lg:w-62.5">
+        <span className="flex w-50 items-center justify-center gap-1 text-[calc(82px/1.8)] font-black text-gray-200 text-shadow-black text-shadow-sm lg:w-62.5">
           <Image
             src={logoImg}
+            loading="eager"
             alt="logo"
             height={82}
             width={82}

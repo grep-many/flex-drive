@@ -9,8 +9,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "FluxDrive",
-  description: "FluxDrive - The only storage solution you need.",
+  title: "FlexDrive",
+  description: "FlexDrive - The only storage solution you need.",
 };
 
 export default function RootLayout({
