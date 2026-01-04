@@ -17,6 +17,7 @@ import Link from "next/link";
 import { avatarImg, loaderSVG } from "@/assets";
 import React from "react";
 import { createAccount } from "@/lib/actions/user.actions";
+import OtpModal from "./OTPModel";
 
 const authFormSchema = (formType: FormType) => {
   return z.object({
@@ -128,8 +129,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </form>
       </Form>
 
-      {/* TODO: implement a shortciruit with accountId to render the otp component */}
-      {/* {accountId && <OTPModal email={form.getValues("email")} accountId={accountId} />} */}
+      {accountId && <OtpModal email={form.getValues("email")} accountId={accountId} />}
     </>
   );
 };

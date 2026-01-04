@@ -107,7 +107,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --animate: caret-blink 1.25s ease-out infinite;
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
 
   @keyframes caret-blink {
     0%,
