@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { avatarImg, loaderSVG } from "@/assets";
 import React from "react";
+import { createAccount } from "@/lib/actions/user.actions";
 
 const authFormSchema = (formType: FormType) => {
   return z.object({
@@ -27,9 +28,9 @@ const authFormSchema = (formType: FormType) => {
 type FormType = "sign-in" | "sign-up";
 
 const AuthForm = ({ type }: { type: FormType }) => {
-
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [accountId, setAccountId] = React.useState(null);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -39,9 +40,19 @@ const AuthForm = ({ type }: { type: FormType }) => {
       email: "",
     },
   });
-  
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    setIsLoading(true);
+    try {
+      const user = await createAccount({ fullName: values.fullName || "", email: values.email });
+      setAccountId(user.accountId);
+    } catch (err) {
+      setErrorMessage("Failed to create account. Please try again!");
+      setTimeout(() => setErrorMessage(""), 3000);
+      console.error("Something went wrong while submitting auth form! ", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -111,12 +122,14 @@ const AuthForm = ({ type }: { type: FormType }) => {
               href={type === "sign-in" ? "/sign-up" : "/sign-in"}
               className="text-brand ml-1 font-medium"
             >
-              {" "}
               {type === "sign-in" ? "Sign Up" : "Sign In"}
             </Link>
           </div>
         </form>
       </Form>
+
+      {/* TODO: implement a shortciruit with accountId to render the otp component */}
+      {/* {accountId && <OTPModal email={form.getValues("email")} accountId={accountId} />} */}
     </>
   );
 };

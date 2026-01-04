@@ -230,7 +230,7 @@
 }
 
 @utility shad-input {
-  @apply shad-no-focus! placeholder:text-light-200! body-2! border-none! p-0! px-3! mt-1! shadow-none!;
+  @apply shad-no-focus! placeholder:text-light-200! body-2! mt-1! border-none! p-0! px-3! shadow-none!;
 }
 
 @utility shad-form-item {
