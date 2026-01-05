@@ -81,16 +81,19 @@ export const verifySecret = async ({
 };
 
 export const getCurrentUser = async () => {
-  const { tablesDB, account } = await createSessionClient();
+  try {
+    const { tablesDB, account } = await createSessionClient();
+    const result = await account.get();
 
-  const result = await account.get();
+    const user = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "users",
+      queries: [Query.equal("accountId", [result.$id])],
+    });
 
-  const user = await tablesDB.listRows({
-    databaseId: appwriteConfig.databaseId,
-    tableId: "users",
-    queries: [Query.equal("accountId", [result.$id])],
-  });
-
-  if (user.total <= 0) return null;
-  return parseStringify(user.rows[0]);
+    if (user.total <= 0) return null;
+    return parseStringify(user.rows[0]);
+  } catch (err) {
+    handleError(err, "Something went wrong while fetching user!");
+  }
 };

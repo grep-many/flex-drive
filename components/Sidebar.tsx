@@ -5,14 +5,15 @@ import { navItems } from "@/constants";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { avatarImg, files2Img } from "@/assets";
+import { files2Img } from "@/assets";
 
 interface Props {
   fullName: string;
   email: string;
+  avatar: string;
 }
 
-const Sidebar = ({ email, fullName }: Props) => {
+const Sidebar = ({ avatar, email, fullName }: Props) => {
   const pathname = usePathname();
   return (
     <aside className="sidebar">
@@ -23,8 +24,8 @@ const Sidebar = ({ email, fullName }: Props) => {
 
       <nav className="sidebar-nav">
         <ul className="flex flex-1 flex-col gap-6">
-          {navItems.map(({ name, icon, url }, i) => (
-            <Link href={url} key={i} className="lg:w-full">
+          {navItems.map(({ name, icon, url }) => (
+            <Link href={url} key={url} className="lg:w-full">
               <li className={cn("sidebar-nav-item", pathname === url && "shad-active")}>
                 <Image
                   src={icon}
@@ -47,13 +48,7 @@ const Sidebar = ({ email, fullName }: Props) => {
         className="w-full [@media(max-height:770px)]:hidden"
       />
       <div className="sidebar-user-info">
-        <Image
-          src={avatarImg}
-          alt="avatar"
-          width={44}
-          height={44}
-          className="sidebar-user-avatar"
-        />
+        <Image src={avatar} alt="avatar" width={44} height={44} className="sidebar-user-avatar" />
         <div className="hidden lg:block">
           <p className="subtitle-2 capitalize">{fullName}</p>
           <p className="caption">{email}</p>
