@@ -1,6 +1,6 @@
 "use server";
 import { Query, ID } from "node-appwrite";
-import { createAdminClient } from "../appwrite";
+import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { avatarImg } from "@/assets";
 import { parseStringify } from "../utils";
@@ -55,22 +55,42 @@ export const createAccount = async ({ fullName, email }: { fullName: string; ema
   return parseStringify({ accountId });
 };
 
-export const verifySecret = async ({accountId,password}:{accountId:string,password:string}) => {
+export const verifySecret = async ({
+  accountId,
+  password,
+}: {
+  accountId: string;
+  password: string;
+}) => {
   try {
     const { account } = await createAdminClient();
 
-    const session = await account.createSession({userId:accountId,secret: password});
-    
-    (await cookies()).set('appwrite-session', session.secret, {
+    const session = await account.createSession({ userId: accountId, secret: password });
+
+    (await cookies()).set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
       secure: true,
     });
 
-    return parseStringify({sessionId:session.$id})
-
+    return parseStringify({ sessionId: session.$id });
   } catch (err) {
-    handleError(err,"Failed to verify OTP")
+    handleError(err, "Failed to verify OTP");
   }
-}
+};
+
+export const getCurrentUser = async () => {
+  const { tablesDB, account } = await createSessionClient();
+
+  const result = await account.get();
+
+  const user = await tablesDB.listRows({
+    databaseId: appwriteConfig.databaseId,
+    tableId: "users",
+    queries: [Query.equal("accountId", [result.$id])],
+  });
+
+  if (user.total <= 0) return null;
+  return parseStringify(user.rows[0]);
+};
