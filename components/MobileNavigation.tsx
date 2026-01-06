@@ -78,7 +78,7 @@ const MobileNavigation = ({ avatar, ownerId, accountId, fullName, email }: Props
           <Separator className="bg-light-200/20 my-5" />
 
           <div className="flex flex-col justify-between gap-5 pb-5">
-            <FileUploader />
+            <FileUploader ownerId={ownerId} accountId={accountId} />
             <Button
               type="submit"
               className="mobile-sign-out-button"

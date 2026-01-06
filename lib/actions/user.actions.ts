@@ -3,15 +3,9 @@ import { Query, ID, Account } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { avatarImg } from "@/assets";
-import { parseStringify } from "../utils";
+import { handleError, parseStringify } from "../utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { error } from "console";
-
-const handleError = (error: unknown, message: string) => {
-  console.log(error, message);
-  return null;
-};
 
 const getUserByEmail = async (email: string) => {
   try {
