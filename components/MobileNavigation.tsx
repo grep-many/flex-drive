@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
+import { Models } from "node-appwrite";
 
 interface Props {
   ownerId: string;
@@ -27,7 +28,7 @@ interface Props {
   email: string;
 }
 
-const MobileNavigation = ({ avatar, ownerId, accountId, fullName, email }: Props) => {
+const MobileNavigation = ({ avatar, accountId, fullName, email,...props }:Models.Document& Props) => {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
@@ -78,7 +79,7 @@ const MobileNavigation = ({ avatar, ownerId, accountId, fullName, email }: Props
           <Separator className="bg-light-200/20 my-5" />
 
           <div className="flex flex-col justify-between gap-5 pb-5">
-            <FileUploader ownerId={ownerId} accountId={accountId} />
+            <FileUploader ownerId={props.$id} accountId={accountId} />
             <Button
               type="submit"
               className="mobile-sign-out-button"

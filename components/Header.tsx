@@ -4,18 +4,19 @@ import Image from "next/image";
 import Search from "./Search";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
+import { Models } from "node-appwrite";
 
 interface Props {
   ownerId: string;
   accountId: string;
 }
 
-const Header = ({ ownerId, accountId }: Props) => {
+const Header = (user: Models.Document&Props) => {
   return (
     <header className="header">
       <Search />
       <div className="header-wrapper">
-        <FileUploader ownerId={ownerId} accountId={accountId} />
+        <FileUploader ownerId={user.$id} accountId={user.accountId} />
         <form action={signOutUser}>
           <Button type="submit" className="sign-out-button">
             <Image src={logoutSVG} alt="logo" width={24} height={24} className="w-6" />

@@ -4,8 +4,17 @@ import { InputFile } from "node-appwrite/file";
 import { createAdminClient } from "../appwrite";
 import { constructFileUrl, getFileType, handleError, parseStringify } from "../utils";
 import { appwriteConfig } from "../appwrite/config";
-import { ID } from "node-appwrite";
+import { ID, Models, Query } from "node-appwrite";
 import { revalidatePath } from "next/cache";
+import { getCurrentUser } from "./user.actions";
+
+const createQueries = (user: Models.Row & { email: string }) => {
+  const queries = [
+    Query.or([Query.equal("owner", [user.$id]), Query.contains("users", [user.email])]),
+  ];
+
+  return queries;
+};
 
 export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileProps) => {
   const { storage, tablesDB } = await createAdminClient();
@@ -25,7 +34,7 @@ export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileP
       type: getFileType(bucketFile.name).type,
       bucketFileId: bucketFile.$id,
       accountId,
-      owner: ownerId,
+      owner:ownerId,
       extension: getFileType(bucketFile.name).extension,
       size: bucketFile.sizeOriginal,
       users: [],
@@ -50,5 +59,24 @@ export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileP
     return parseStringify(newFile);
   } catch (err) {
     handleError(err, "Something went wrong while uploading file!");
+  }
+};
+
+export const getFiles = async () => {
+  const { tablesDB } = await createAdminClient();
+
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error("User not found!");
+    const queries = createQueries(user);
+
+    const files = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "files",
+      queries,
+    });
+    return parseStringify(files);
+  } catch (err) {
+    handleError(err, "Something went wrong while fetching files!");
   }
 };
