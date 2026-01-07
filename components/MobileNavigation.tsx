@@ -28,7 +28,7 @@ interface Props {
   email: string;
 }
 
-const MobileNavigation = ({ avatar, accountId, fullName, email,...props }:Models.Document& Props) => {
+const MobileNavigation = ({ avatar, accountId, fullName, email, ...props }: UserData) => {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 

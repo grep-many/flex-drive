@@ -8,7 +8,7 @@ import { ID, Models, Query } from "node-appwrite";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./user.actions";
 
-const createQueries = (user: Models.Row & { email: string }) => {
+const createQueries = (user: UserData) => {
   const queries = [
     Query.or([Query.equal("owner", [user.$id]), Query.contains("users", [user.email])]),
   ];
@@ -34,7 +34,7 @@ export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileP
       type: getFileType(bucketFile.name).type,
       bucketFileId: bucketFile.$id,
       accountId,
-      owner:ownerId,
+      owner: ownerId,
       extension: getFileType(bucketFile.name).extension,
       size: bucketFile.sizeOriginal,
       users: [],
@@ -68,7 +68,7 @@ export const getFiles = async () => {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error("User not found!");
-    const queries = createQueries(user);
+    const queries = [...createQueries(user), Query.select(["*", "owner", "owner.*"])];
 
     const files = await tablesDB.listRows({
       databaseId: appwriteConfig.databaseId,

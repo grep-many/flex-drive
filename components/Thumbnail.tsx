@@ -19,7 +19,7 @@ const Thumbnail = ({ type, extension, url = "", imageClassName, className }: Pro
         alt="thumbnail"
         width={100}
         height={100}
-        className={cn("size-8 object-contain", imageClassName, isImage && "thumbnail-image")}
+        className={cn("size-8 object-contain", isImage && "thumbnail-image", imageClassName)}
       />
     </figure>
   );

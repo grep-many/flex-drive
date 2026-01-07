@@ -1,8 +1,5 @@
-
 const Sort = () => {
-  return (
-    <>Sort</>
-  )
-}
+  return <>Sort</>;
+};
 
-export default Sort
+export default Sort;

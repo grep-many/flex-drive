@@ -4,14 +4,8 @@ import Image from "next/image";
 import Search from "./Search";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
-import { Models } from "node-appwrite";
 
-interface Props {
-  ownerId: string;
-  accountId: string;
-}
-
-const Header = (user: Models.Document&Props) => {
+const Header = (user: UserData) => {
   return (
     <header className="header">
       <Search />
