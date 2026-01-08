@@ -32,7 +32,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [accountId, setAccountId] = React.useState(null);
-  const modalRef = React.useRef<any>(null);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({

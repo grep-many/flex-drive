@@ -129,6 +129,10 @@
     @apply border-border scroll-smooth;
   }
 
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+
   body {
     @apply bg-background text-foreground min-h-screen;
   }

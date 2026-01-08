@@ -1,5 +1,5 @@
 "use server";
-import { Query, ID, Account } from "node-appwrite";
+import { Query, ID } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { avatarImg } from "@/assets";

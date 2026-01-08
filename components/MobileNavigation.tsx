@@ -18,15 +18,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
-import { Models } from "node-appwrite";
-
-interface Props {
-  ownerId: string;
-  accountId: string;
-  avatar: string;
-  fullName: string;
-  email: string;
-}
 
 const MobileNavigation = ({ avatar, accountId, fullName, email, ...props }: UserData) => {
   const pathname = usePathname();

@@ -4,7 +4,7 @@ import { InputFile } from "node-appwrite/file";
 import { createAdminClient } from "../appwrite";
 import { constructFileUrl, getFileType, handleError, parseStringify } from "../utils";
 import { appwriteConfig } from "../appwrite/config";
-import { ID, Models, Query } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./user.actions";
 

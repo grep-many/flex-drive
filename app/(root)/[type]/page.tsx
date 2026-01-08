@@ -1,7 +1,6 @@
 import FileCard from "@/components/FileCard";
 import Sort from "@/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
-import { Models } from "node-appwrite";
 
 const Page = async ({ params }: SearchParamProps) => {
   const type = (await params)?.type;

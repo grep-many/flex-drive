@@ -71,11 +71,7 @@ const OtpModal = ({ accountId, email }: { accountId: string; email: string }) =>
 
         <AlertDialogFooter>
           <div className="flex w-full flex-col gap-4">
-            <AlertDialogAction
-              onClick={handleSubmit}
-              className="shad-submit-btn h-12"
-              type="button"
-            >
+            <AlertDialogAction onClick={handleSubmit} className="shad-submit-btn h-12">
               Submit
               {isLoading && (
                 <Image
@@ -90,12 +86,7 @@ const OtpModal = ({ accountId, email }: { accountId: string; email: string }) =>
 
             <div className="subtitle-2 text-light-100 mt-2 text-center">
               Didn&apos;t get a code?
-              <Button
-                type="button"
-                variant="link"
-                className="text-brand pl-1"
-                onClick={handleResendOtp}
-              >
+              <Button variant="link" className="text-brand pl-1" onClick={handleResendOtp}>
                 Click to resend
               </Button>
             </div>

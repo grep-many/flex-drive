@@ -1,20 +1,18 @@
-/* eslint-disable no-unused-vars */
-
 import { Models } from "node-appwrite";
 export {};
 
 declare global {
   type FileType = "document" | "image" | "video" | "audio" | "other";
 
-  type UserData = {
+  interface UserData extends Models.Row {
     fullName: string;
     name: string;
     email: string;
     avatar: string;
     accountId: string;
-  } & Models.Row;
+  }
 
-  type FileData = {
+  interface FileData {
     name: string;
     url: string;
     type: string;
@@ -24,7 +22,7 @@ declare global {
     extension: string;
     size: number;
     users: string[];
-  };
+  }
 
   type FileRowData = FileData & Models.Row;
 
@@ -96,8 +94,13 @@ declare global {
   }
 
   interface ShareInputProps {
-    file: Models.Document;
+    file: FileRowData;
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onRemove: (email: string) => void;
+  }
+
+  interface DialogMethods {
+    open: (option: ActionType) => void;
+    close: () => void;
   }
 }
