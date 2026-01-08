@@ -80,3 +80,22 @@ export const getFiles = async () => {
     handleError(err, "Something went wrong while fetching files!");
   }
 };
+
+export const renameFile = async ({ fileId, name, extension, path }: RenameFileProps) => {
+  try {
+    const { tablesDB } = await createAdminClient();
+    const newName = `${name}.${extension}`;
+    const updatedFile = await tablesDB.updateRow({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "files",
+      rowId: fileId,
+      data: {
+        name: newName,
+      },
+    });
+    revalidatePath(path);
+    return parseStringify(updatedFile);
+  } catch (err) {
+    handleError(err, "Something went wrong while renaming file!");
+  }
+};
