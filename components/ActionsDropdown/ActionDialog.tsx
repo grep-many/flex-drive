@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import { loaderSVG } from "@/assets";
 import { renameFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
+import { FileDetails } from "./ActionModalContent";
 
 interface Props {
   file: FileRowData;
@@ -77,6 +78,7 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             />
           )}
+          {value === "details" && <FileDetails file={file} />}
         </DialogHeader>
         {value !== "delete" && (
           <DialogFooter className="flex flex-col justify-around! gap-3 md:flex-row">
