@@ -3,6 +3,7 @@ import React from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -11,9 +12,9 @@ import Image from "next/image";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { loaderSVG } from "@/assets";
-import { renameFile } from "@/lib/actions/file.actions";
+import { renameFile, updateFileUsers } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
-import { FileDetails } from "./ActionModalContent";
+import { FileDetails, ShareInput } from "./ActionModalContent";
 
 interface Props {
   file: FileRowData;
@@ -23,6 +24,7 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
   const [action, setAction] = React.useState<ActionType | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [name, setName] = React.useState(file.name);
+  const [emails, setEmails] = React.useState<string[]>([]);
 
   React.useImperativeHandle(ref, () => ({
     open(option: ActionType) {
@@ -51,12 +53,29 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
           path,
         });
       },
-      share: () => console.log("share"),
+      share: () => {
+        if (
+          emails.length === file.users.length &&
+          emails.every((email) => file.users.includes(email))
+        )
+          return false;
+        return updateFileUsers({
+          fileId: file.$id,
+          emails: Array.from(new Set([...file.users, ...emails])),
+          path,
+        });
+      },
       delete: () => console.log("delete"),
     };
     let success = await actions[action.value as keyof typeof actions]();
+    setIsLoading(false);
     if (!success) return;
     setAction(null);
+  };
+
+  const handleRemoveUser = async (email: string) => {
+    const updatedEmails = file.users.filter((user) => user !== email);
+    await updateFileUsers({ fileId: file.$id, emails: updatedEmails, path });
   };
 
   return (
@@ -72,6 +91,7 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
             <Image src={icon} alt={value} height={30} width={30} />
             {label}
           </DialogTitle>
+          <DialogDescription />
           {value === "rename" && (
             <Input
               value={name}
@@ -79,28 +99,37 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
             />
           )}
           {value === "details" && <FileDetails file={file} />}
+          {value === "share" && (
+            <ShareInput file={file} onInputChange={setEmails} onRemove={handleRemoveUser} />
+          )}
         </DialogHeader>
         {value !== "delete" && (
           <DialogFooter className="flex flex-col justify-around! gap-3 md:flex-row">
             <Button
               variant="outline"
-              className="modal-cancel-button"
+              className={
+                value !== "details"
+                  ? "modal-cancel-button"
+                  : "modal-submit-button text-white hover:text-white"
+              }
               onClick={() => setAction(null)}
             >
-              Cancel
+              {value !== "details" ? "Cancel" : "Ok"}
             </Button>
-            <Button className="modal-submit-button capitalize" onClick={handleAction}>
-              {value}
-              {isLoading && (
-                <Image
-                  src={loaderSVG}
-                  className="animate-spin"
-                  alt="loading..."
-                  height={24}
-                  width={24}
-                />
-              )}
-            </Button>
+            {value !== "details" && (
+              <Button className="modal-submit-button capitalize" onClick={handleAction}>
+                {value}
+                {isLoading && (
+                  <Image
+                    src={loaderSVG}
+                    className="animate-spin"
+                    alt="loading..."
+                    height={24}
+                    width={24}
+                  />
+                )}
+              </Button>
+            )}
           </DialogFooter>
         )}
       </DialogContent>

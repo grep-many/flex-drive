@@ -99,3 +99,21 @@ export const renameFile = async ({ fileId, name, extension, path }: RenameFilePr
     handleError(err, "Something went wrong while renaming file!");
   }
 };
+
+export const updateFileUsers = async ({ fileId, emails, path }: UpdateFileUsersProps) => {
+  try {
+    const { tablesDB } = await createAdminClient();
+    const updatedFile = await tablesDB.updateRow({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "files",
+      rowId: fileId,
+      data: {
+        users: emails,
+      },
+    });
+    revalidatePath(path);
+    return parseStringify(updatedFile);
+  } catch (err) {
+    handleError(err, "Something went wrong while renaming file!");
+  }
+};
