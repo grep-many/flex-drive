@@ -67,7 +67,7 @@ export const ShareInput = ({ file, onRemove, onInputChange }: ShareProps) => {
             <p className="subtitle-2 text-light-100"> Share with</p>
             <p className="subtitle-2 text-light-100"> {file.users.length || 0} users</p>
           </div>
-          <ul className="h-20 pt-2 overflow-x-scroll">
+          <ul className="h-20 overflow-x-scroll pt-2">
             {file.users.map((email: string) => (
               <li key={email} className="flex items-center justify-between gap-2">
                 <p className="subtitle-2">{email}</p>

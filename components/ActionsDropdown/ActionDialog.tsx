@@ -12,7 +12,7 @@ import Image from "next/image";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { loaderSVG } from "@/assets";
-import { renameFile, updateFileUsers } from "@/lib/actions/file.actions";
+import { deleteFile, renameFile, updateFileUsers } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 import { FileDetails, ShareInput } from "./ActionModalContent";
 
@@ -65,7 +65,7 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
           path,
         });
       },
-      delete: () => console.log("delete"),
+      delete: () => deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path }),
     };
     let success = await actions[action.value as keyof typeof actions]();
     setIsLoading(false);
@@ -102,36 +102,41 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
           {value === "share" && (
             <ShareInput file={file} onInputChange={setEmails} onRemove={handleRemoveUser} />
           )}
+          {value === "delete" && (
+            <p className="delete-confirmation">
+              {" "}
+              Are you sure want to delete{` `}
+              <span className="delete-file-name">{file.name}</span>?
+            </p>
+          )}
         </DialogHeader>
-        {value !== "delete" && (
-          <DialogFooter className="flex flex-col justify-around! gap-3 md:flex-row">
-            <Button
-              variant="outline"
-              className={
-                value !== "details"
-                  ? "modal-cancel-button"
-                  : "modal-submit-button text-white hover:text-white"
-              }
-              onClick={() => setAction(null)}
-            >
-              {value !== "details" ? "Cancel" : "Ok"}
+        <DialogFooter className="flex flex-col justify-around! gap-3 md:flex-row">
+          <Button
+            variant="outline"
+            className={
+              value !== "details"
+                ? "modal-cancel-button"
+                : "modal-submit-button text-white hover:text-white"
+            }
+            onClick={() => setAction(null)}
+          >
+            {value !== "details" ? "Cancel" : "Ok"}
+          </Button>
+          {value !== "details" && (
+            <Button className="modal-submit-button capitalize" onClick={handleAction}>
+              {value}
+              {isLoading && (
+                <Image
+                  src={loaderSVG}
+                  className="animate-spin"
+                  alt="loading..."
+                  height={24}
+                  width={24}
+                />
+              )}
             </Button>
-            {value !== "details" && (
-              <Button className="modal-submit-button capitalize" onClick={handleAction}>
-                {value}
-                {isLoading && (
-                  <Image
-                    src={loaderSVG}
-                    className="animate-spin"
-                    alt="loading..."
-                    height={24}
-                    width={24}
-                  />
-                )}
-              </Button>
-            )}
-          </DialogFooter>
-        )}
+          )}
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

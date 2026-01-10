@@ -114,6 +114,24 @@ export const updateFileUsers = async ({ fileId, emails, path }: UpdateFileUsersP
     revalidatePath(path);
     return parseStringify(updatedFile);
   } catch (err) {
-    handleError(err, "Something went wrong while renaming file!");
+    handleError(err, "Something went wrong while updating file!");
+  }
+};
+
+export const deleteFile = async ({ fileId, bucketFileId, path }: DeleteFileProps) => {
+  try {
+    const { tablesDB, storage } = await createAdminClient();
+    const deletedFile = await tablesDB.deleteRow({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "files",
+      rowId: fileId,
+    });
+    if (deletedFile) {
+      await storage.deleteFile({ bucketId: appwriteConfig.bucketId, fileId: bucketFileId });
+    }
+    revalidatePath(path);
+    return parseStringify({ status: "success" });
+  } catch (err) {
+    handleError(err, "Something went wrong while removing file!");
   }
 };

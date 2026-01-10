@@ -184,4 +184,3 @@ export const formatDateTime = (isoString: string | null | undefined) => {
 
 export const constructDownloadUrl = (bucketFileId: string) =>
   `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET}/files/${bucketFileId}/download?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
-
