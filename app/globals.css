@@ -563,7 +563,7 @@
 }
 
 @utility search-result {
-  @apply absolute! top-16! left-0! z-50! flex! w-full! flex-col! gap-3! rounded-[20px]! bg-white! p-4!;
+  @apply relative! left-0! z-50! flex! w-full! flex-col! gap-3! rounded-[20px]! bg-white! p-4!;
 }
 
 @utility empty-result {

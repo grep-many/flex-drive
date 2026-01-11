@@ -1,13 +1,18 @@
 import FileCard from "@/components/FileCard";
 import Sort from "@/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
+import { getFileTypesParams } from "@/lib/utils";
 
-const Page = async ({ params }: SearchParamProps) => {
+const Page = async ({ searchParams, params }: SearchParamProps) => {
   const type = (await params)?.type;
-  const files = await getFiles();
+  const searchText = ((await searchParams)?.search as string) || "";
+  const sort = ((await searchParams)?.sort as string) || "";
+  const types = getFileTypesParams(type) as FileType[];
+
+  const files = await getFiles({ types, searchText, sort });
   const totalSize = () => {
     let size = 0;
-    for (let i = 0; i < files.total; i++) {
+    for (let i = 0; i < files?.total; i++) {
       size += files.rows[i].size / 1024;
     }
     return `${String(size.toFixed(2))} MB`;

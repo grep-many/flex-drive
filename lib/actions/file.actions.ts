@@ -8,10 +8,24 @@ import { ID, Query } from "node-appwrite";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./user.actions";
 
-const createQueries = (user: UserData) => {
+const createQueries = (
+  user: UserData,
+  types: string[],
+  searchText: string,
+  sort: string,
+  limit?: number,
+) => {
   const queries = [
     Query.or([Query.equal("owner", [user.$id]), Query.contains("users", [user.email])]),
   ];
+
+  if (types.length > 0) queries.push(Query.equal("type", types));
+  if (searchText) queries.push(Query.contains("name", searchText));
+  if (limit) queries.push(Query.limit(limit));
+
+  const [sortBy, orderBy] = sort.split("-");
+
+  queries.push(orderBy === "asc" ? Query.orderAsc(sortBy) : Query.orderDesc(sortBy));
 
   return queries;
 };
@@ -62,13 +76,21 @@ export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileP
   }
 };
 
-export const getFiles = async () => {
+export const getFiles = async ({
+  types = [],
+  searchText = "",
+  sort = "desc",
+  limit,
+}: GetFilesProps) => {
   const { tablesDB } = await createAdminClient();
 
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error("User not found!");
-    const queries = [...createQueries(user), Query.select(["*", "owner", "owner.*"])];
+    const queries = [
+      ...createQueries(user, types, searchText, `$createdAt-${sort}`, limit),
+      Query.select(["*", "owner", "owner.*"]),
+    ];
 
     const files = await tablesDB.listRows({
       databaseId: appwriteConfig.databaseId,
