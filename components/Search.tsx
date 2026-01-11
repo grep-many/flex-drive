@@ -23,7 +23,7 @@ const Search = () => {
         params.set("search", searchText);
         (async () => {
           const files = await getFiles({ searchText });
-          setSearchResults(files.rows || []);
+          setSearchResults(files?.rows || []);
           setShowResults(true);
         })();
       } else {
@@ -42,7 +42,7 @@ const Search = () => {
         <Input
           value={searchText}
           placeholder="Search..."
-          className="search-input"
+          className="search-input px-2"
           onChange={(e) => setSearchText(e.target.value || "")}
         />
         {showResults && (

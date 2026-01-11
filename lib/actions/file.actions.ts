@@ -88,7 +88,7 @@ export const getFiles = async ({
     const user = await getCurrentUser();
     if (!user) throw new Error("User not found!");
     const queries = [
-      ...createQueries(user, types, searchText, `$createdAt-${sort}`, limit),
+      ...createQueries(user, types, searchText, sort, limit),
       Query.select(["*", "owner", "owner.*"]),
     ];
 
