@@ -23,7 +23,9 @@ interface Props {
 const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
   const [action, setAction] = React.useState<ActionType | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [name, setName] = React.useState(file.name);
+  const [name, setName] = React.useState(
+    file.name.replace(new RegExp(`\\.${file.extension}$`), ""),
+  );
   const [emails, setEmails] = React.useState<string[]>([]);
 
   React.useImperativeHandle(ref, () => ({
@@ -49,7 +51,7 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
         return renameFile({
           fileId: file.$id,
           extension: file.extension,
-          name,
+          name: name.replace(new RegExp(`\\.${file.extension}$`), ""),
           path,
         });
       },

@@ -42,7 +42,7 @@ const Search = () => {
         <Input
           value={searchText}
           placeholder="Search..."
-          className="search-input px-2"
+          className="search-input px-2!"
           onChange={(e) => setSearchText(e.target.value || "")}
         />
         {showResults && (

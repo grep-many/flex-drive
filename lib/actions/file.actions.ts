@@ -1,7 +1,7 @@
 "use server";
 
 import { InputFile } from "node-appwrite/file";
-import { createAdminClient } from "../appwrite";
+import { createAdminClient, createSessionClient } from "../appwrite";
 import { constructFileUrl, getFileType, handleError, parseStringify } from "../utils";
 import { appwriteConfig } from "../appwrite/config";
 import { ID, Query } from "node-appwrite";
@@ -79,7 +79,7 @@ export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileP
 export const getFiles = async ({
   types = [],
   searchText = "",
-  sort = "desc",
+  sort = "$createdAt-desc",
   limit,
 }: GetFilesProps) => {
   const { tablesDB } = await createAdminClient();
@@ -157,3 +157,44 @@ export const deleteFile = async ({ fileId, bucketFileId, path }: DeleteFileProps
     handleError(err, "Something went wrong while removing file!");
   }
 };
+
+export async function getTotalSpaceUsed() {
+  try {
+    const { tablesDB } = await createSessionClient();
+    const currentUser = await getCurrentUser();
+    if (!currentUser) throw new Error("User is not authenticated.");
+
+    const files = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "files",
+      queries: [Query.equal("owner", [currentUser.$id])],
+    });
+
+    const totalSpace = {
+      image: { size: 0, latestDate: "" },
+      document: { size: 0, latestDate: "" },
+      video: { size: 0, latestDate: "" },
+      audio: { size: 0, latestDate: "" },
+      other: { size: 0, latestDate: "" },
+      used: 0,
+      all: 2 * 1024 * 1024 * 1024 /* 2GB available bucket storage */,
+    };
+
+    files.rows.forEach((file) => {
+      const fileType = file.type as FileType;
+      totalSpace[fileType].size += file.size;
+      totalSpace.used += file.size;
+
+      if (
+        !totalSpace[fileType].latestDate ||
+        new Date(file.$updatedAt) > new Date(totalSpace[fileType].latestDate)
+      ) {
+        totalSpace[fileType].latestDate = file.$updatedAt;
+      }
+    });
+
+    return parseStringify(totalSpace);
+  } catch (error) {
+    handleError(error, "Error calculating total space used:, ");
+  }
+}
