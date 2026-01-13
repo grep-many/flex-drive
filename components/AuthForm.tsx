@@ -18,6 +18,7 @@ import { loaderSVG } from "@/assets";
 import React from "react";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import OtpModal from "./OTPModel";
+import { useToast } from "@/hooks/use-toast";
 
 const authFormSchema = (formType: FormType) => {
   return z.object({
@@ -32,6 +33,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [accountId, setAccountId] = React.useState(null);
+  const { toast } = useToast();
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,11 +46,23 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
+    let user;
     try {
-      const user =
-        type === "sign-up"
-          ? await createAccount({ fullName: values.fullName || "", email: values.email })
-          : await signInUser(values.email);
+      if (type === "sign-up") {
+        user = await createAccount({ fullName: values.fullName || "", email: values.email });
+        if (!user)
+          return toast({
+            description: <p className="body-2 text-white">User Already Exist's!</p>,
+            className: "error-toast",
+          });
+      } else {
+        user = await signInUser(values.email);
+        if (!user)
+          return toast({
+            description: <p className="body-2 text-white">User Does not Exist's!</p>,
+            className: "error-toast",
+          });
+      }
       setAccountId(user.accountId);
     } catch (err) {
       setErrorMessage("Failed to create account. Please try again!");

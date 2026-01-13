@@ -17,6 +17,7 @@
 ## ✨ Overview
 
 **Flex Drive** allows users to:
+
 - Upload and manage files securely
 - Preview documents, images, videos, and media
 - Organize files by type
@@ -37,6 +38,7 @@ The application is designed as a **full-stack cloud storage solution** using **A
 ## 📦 Tech Stack
 
 ### Frontend
+
 - Next.js 16 (App Router)
 - React 19
 - TypeScript
@@ -44,13 +46,14 @@ The application is designed as a **full-stack cloud storage solution** using **A
 - Radix UI
 - React Hook Form + Zod
 - Recharts
-- Next Themes
 
 ### Backend / Services
+
 - Appwrite (Auth, Database, Storage)
 - Node Appwrite SDK
 
 ### Developer Tools
+
 - ESLint 9
 - Prettier
 - Tailwind Merge
@@ -105,17 +108,20 @@ NEXT_APPWRITE_KEY="your_appwrite_secret_key"
 ## 🛠️ Getting Started
 
 ### Clone the Repository
+
 ```bash
 git clone https://github.com/grep-many/flex-drive.git
 cd flex-drive
 ```
 
 ### Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### Run Development Server
+
 ```bash
 npm run dev
 ```
@@ -141,6 +147,7 @@ Open `http://localhost:3000/flex-drive` in your browser.
 ## 🔧 Appwrite Configuration
 
 Ensure the following are created in Appwrite:
+
 - Project
 - Database
 - Storage Bucket
@@ -150,7 +157,7 @@ Ensure the following are created in Appwrite:
 Appwrite configuration is handled in:
 
 ```ts
-lib/appwrite/config.ts
+lib / appwrite / config.ts;
 ```
 
 ---
@@ -158,6 +165,7 @@ lib/appwrite/config.ts
 ## 📌 Use Case
 
 Flex Drive can be used as:
+
 - A personal cloud storage system
 - A portfolio-grade full-stack project
 - A base for enterprise document management systems

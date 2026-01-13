@@ -129,7 +129,7 @@ export const getFileIcon = (extension: string | undefined, type: FileType | stri
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
 export const handleError = (error: unknown, message: string) => {
-  console.log(error, message);
+  console.error(error, message);
   return null;
 };
 
