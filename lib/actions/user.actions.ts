@@ -96,7 +96,7 @@ export const getCurrentUser = async () => {
 
     if (!user || user.total <= 0) return null;
     return parseStringify(user.rows[0]);
-  } catch (err) {
+  } catch {
     return null;
   }
 };

@@ -19,21 +19,22 @@ const Search = () => {
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
-      if (searchText) {
+      if (searchText === params.get("search")) return;
+      if (!searchText) {
+        params.delete("search");
+      } else {
         params.set("search", searchText);
         (async () => {
           const files = await getFiles({ searchText });
           setSearchResults(files?.rows || []);
           setShowResults(true);
         })();
-      } else {
-        params.delete("search");
       }
       router.replace(`?${params.toString()}`, { scroll: false });
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [searchText]);
+  }, [searchText, searchParams, router]);
 
   return (
     <div className="search">

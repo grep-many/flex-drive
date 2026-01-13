@@ -69,7 +69,7 @@ const ActionDialog = React.forwardRef(({ file }: Props, ref) => {
       },
       delete: () => deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path }),
     };
-    let success = await actions[action.value as keyof typeof actions]();
+    const success = await actions[action.value as keyof typeof actions]();
     setIsLoading(false);
     if (!success) return;
     setAction(null);

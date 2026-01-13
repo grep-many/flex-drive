@@ -52,14 +52,14 @@ const AuthForm = ({ type }: { type: FormType }) => {
         user = await createAccount({ fullName: values.fullName || "", email: values.email });
         if (!user)
           return toast({
-            description: <p className="body-2 text-white">User Already Exist's!</p>,
+            description: <p className="body-2 text-white">User Already Exist&apos;s!</p>,
             className: "error-toast",
           });
       } else {
         user = await signInUser(values.email);
         if (!user)
           return toast({
-            description: <p className="body-2 text-white">User Does not Exist's!</p>,
+            description: <p className="body-2 text-white">User Does not Exist&apos;s!</p>,
             className: "error-toast",
           });
       }

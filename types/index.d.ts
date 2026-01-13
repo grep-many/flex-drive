@@ -103,4 +103,17 @@ declare global {
     open: (option: ActionType) => void;
     close: () => void;
   }
+
+  type UsageBucket = {
+    size: number;
+    latestDate: string;
+  };
+
+  interface UsageSummary {
+    document: UsageBucket;
+    image: UsageBucket;
+    video: UsageBucket;
+    audio: UsageBucket;
+    other: UsageBucket;
+  }
 }

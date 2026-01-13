@@ -204,12 +204,12 @@ export const getFileTypesParams = (type: string) => {
   }
 };
 
-export const getUsageSummary = (totalSpace: any) => {
+export const getUsageSummary = (totalSpace: UsageSummary) => {
   return [
     {
       title: "Documents",
-      size: totalSpace.document.size,
-      latestDate: totalSpace.document.latestDate,
+      size: totalSpace?.document.size,
+      latestDate: totalSpace?.document.latestDate,
       icon: fileDocumentLightSVG,
       url: "/documents",
     },
