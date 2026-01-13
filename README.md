@@ -8,6 +8,7 @@
 ![Appwrite](https://img.shields.io/badge/Appwrite-Cloud-red)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+[![Vercel](https://img.shields.io/badge/deployed%20on-vercel-black?logo=vercel)](https://flex-drive-beryl.vercel.app)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 > **Flex Drive** is a modern **Google Drive–like cloud storage application** built with **Next.js App Router**, **Appwrite**, and **React 19**, enabling secure file uploads, previews, sharing, and management with a clean and responsive UI.
