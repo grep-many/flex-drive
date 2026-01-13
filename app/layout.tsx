@@ -15,6 +15,8 @@ export const metadata: Metadata = {
   description: "FlexDrive - The only storage solution you need.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
